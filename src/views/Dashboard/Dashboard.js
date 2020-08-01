@@ -87,17 +87,18 @@ function createItem(formData) {
     })
 
 }
-
-function deleteItem(formData) {
+function deleteItem(announcementId) {
+//function deleteItem(formData) {
     //fetch(`${API_ROOT}/announcement`, {
-    return fetch(`${API_ROOT}/announcement`, {
+
+    return fetch(`${API_ROOT}/announcement/${announcementId}`, {
         method: 'Delete',
         headers: {
             'Authorization': `${AUTH_HEADER} ${token}`,
             'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
             "Content-Type":  "application/json"
         },
-        body: formData,
+        //body: formData,
     }).then(response => {
         if (response.ok) {
             return response.json();
@@ -316,7 +317,8 @@ function DashBoard() {
                                             formData.set('announcementId', item.announcementId);
                                             formData.set('userId', userId);
 
-                                            let suc = deleteItem(formData);
+                                            //let suc = deleteItem(formData);
+                                            let suc = deleteItem(item.announcementId);
                                             getItems(setDashboards);
                                             suc ? console.log("success") : console.log("Failed");
                                         }}>
