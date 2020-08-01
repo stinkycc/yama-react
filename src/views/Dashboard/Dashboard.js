@@ -12,7 +12,9 @@ import CardBody from "../../components/Card/CardBody";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 
-const token = localStorage.getItem("KEY");
+const token = JSON.parse(localStorage.getItem('TOKEN_KEY')).token;
+const userName = JSON.parse(localStorage.getItem('TOKEN_KEY')).username ;
+const userType = JSON.parse(localStorage.getItem('TOKEN_KEY')).userType;
 function getItems(setItems) {
     //fetch(`${API_ROOT}/announcement`, {
     fetch(`${API_ROOT}/announcement`, {
@@ -134,7 +136,7 @@ function DashBoard() {
     const [editTitle, setEditTitle] = useState("");
     const [editDetail, setEditDetail] = useState("");
     const [editEndDate, setEditEndDate] = useState("");
-    const manager = true;
+    const manager = userType === "Admin" ? true : false;
     const [title, setTitle] = useState('');
     const [detail, setDetail] = useState('');
     const [endDate, setEndDate] = useState(defaultEndDay);
@@ -201,6 +203,7 @@ function DashBoard() {
                             formData.set('detail', editDetail);
                             formData.set('endDate', editEndDate);
                             formData.set('userId', userId);
+                            formData.set('userName', userName);
                             // let suc = createItem(formData);
                             // setEndDate(defaultEndDay);
                             // setDetail("");
