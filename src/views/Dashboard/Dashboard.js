@@ -66,7 +66,6 @@ function updateItem(formData,announcementId) {
         console.log(err);
         return false;
     })
-
 }
 
 function createItem(formData) {
