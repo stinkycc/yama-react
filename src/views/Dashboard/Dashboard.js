@@ -12,12 +12,20 @@ import CardBody from "../../components/Card/CardBody";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 
-const token = JSON.parse(localStorage.getItem('TOKEN_KEY')).token;
-const userName = JSON.parse(localStorage.getItem('TOKEN_KEY')).username ;
-const userType = JSON.parse(localStorage.getItem('TOKEN_KEY')).userType;
+// const token = JSON.parse(localStorage.getItem('TOKEN_KEY')).token;
+// const userName = JSON.parse(localStorage.getItem('TOKEN_KEY')).username ;
+// const userType = JSON.parse(localStorage.getItem('TOKEN_KEY')).userType;
+
+
+const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhIiwidXNlclR5cGUiOiJBZG1pbiIsImlhdCI6MTU5NjMxOTY5NiwiZXhwIjoxNTk2NDA2MDk2fQ.pdZpoC_zx5Gu5_IdSQqaM6OMnhGHlsOSrkwC4xQ7a8w";
+const userName = "a" ;
+const userType = "Admin";
+
+
+
 function getItems(setItems) {
     //fetch(`${API_ROOT}/announcement`, {
-    fetch(`${API_ROOT}/announcement`, {
+    fetch(`${API_ROOT}/announcements`, {
         method: 'GET',
         headers: {
             'Authorization': `${AUTH_HEADER} ${token}`,
@@ -39,14 +47,13 @@ function getItems(setItems) {
 
 function updateItem(formData,announcementId) {
     //fetch(`${API_ROOT}/announcement`, {
-    return fetch(`${API_ROOT}/announcement/${announcementId}`, {
+    return fetch(`${API_ROOT}/announcements/${announcementId}`, {
         method: 'PUT',
         headers: {
             'Authorization': `${AUTH_HEADER} ${token}`,
-            'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
             "Content-Type":  "application/json"
         },
-        body: formData,
+        body: JSON.stringify(formData),
     }).then(response => {
         if (response.ok) {
             return response.json();
@@ -65,14 +72,13 @@ function updateItem(formData,announcementId) {
 function createItem(formData) {
     console.log(formData);
     //fetch(`${API_ROOT}/announcement`, {
-    return fetch(`${API_ROOT}/announcement`, {
+    return fetch(`${API_ROOT}/announcements`, {
         method: 'POST',
         headers: {
             'Authorization': `${AUTH_HEADER} ${token}`,
-            'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
             "Content-Type":  "application/json"
         },
-        body: formData,
+        body: JSON.stringify(formData),
     }).then(response => {
         if (response.ok) {
             return response.json();
@@ -95,10 +101,10 @@ function deleteItem(formData,announcementId) {
         method: 'Delete',
         headers: {
             'Authorization': `${AUTH_HEADER} ${token}`,
-            'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
             "Content-Type":  "application/json"
         },
-        body: formData,
+        body: JSON.stringify({
+        }),
     }).then(response => {
         if (response.ok) {
             return response.json();
@@ -200,12 +206,20 @@ function DashBoard() {
                         if (editTitle == "") {
                             setInfo("*Title is required!")
                         } else {
-                            const formData = new FormData();
-                            formData.set('title', editTitle);
-                            formData.set('detail', editDetail);
-                            formData.set('endDate', editEndDate);
-                            formData.set('userId', userId);
-                            formData.set('userName', userName);
+                            // const formData = new FormData();
+                            // formData.set('title', editTitle);
+                            // formData.set('detail', editDetail);
+                            // formData.set('endDate', editEndDate);
+                            // formData.set('userId', userId);
+                            // formData.set('userName', userName);
+                            const formData = {
+                                'announcementId' : '',
+                                'title' : editTitle,
+                                'detail': editDetail,
+                                'userId' : '',
+                                'postDate' : '',
+                                'endDate' : editEndDate
+                            };
                             let suc = updateItem(formData, announcementId);
                             suc ? setOpenEdit(false) : console.log(suc);
                         }
@@ -265,13 +279,21 @@ function DashBoard() {
                         if (title == "") {
                             setInfo("*Title is required!")
                         } else {
-                            const formData = new FormData();
-                            formData.set('title', title);
-                            formData.set('detail', detail);
-                            formData.set('endDate', endDate);
-                            formData.set('userId', userId);
-                            formData.set('userName', userName);
-                            console.log("test:" + title + detail + endDate);
+                            // const formData = new FormData();
+                            // formData.set('title', title);
+                            // formData.set('detail', detail);
+                            // formData.set('endDate', endDate);
+                            // formData.set('userId', userId);
+                            // formData.set('userName', userName);
+                            // console.log("test:" + title + detail + endDate);
+                            const formData = {
+                                'announcementId' : '',
+                                'title' : title,
+                                'detail': detail,
+                                'userId' : '',
+                                'postDate' : '',
+                                'endDate' : endDate
+                            };
                             let suc = createItem(formData);
                             setEndDate(defaultEndDay);
                             setDetail("");
@@ -312,11 +334,13 @@ function DashBoard() {
                                     }
                                     {
                                         manager ? <ItemButton onClick={() => {
-                                            const formData = new FormData();
+                                            //const formData = new FormData();
                                             // formData.set('announcementId', item.announcementId);
                                             // formData.set('userId', userId);
                                             //formData.set('userName', userName);
                                             //let suc = deleteItem(formData);
+                                            const formData = {
+                                            };
                                             let suc = deleteItem(formData,item.announcementId);
                                             getItems(setDashboards);
                                             suc ? console.log("success") : console.log("Failed");
