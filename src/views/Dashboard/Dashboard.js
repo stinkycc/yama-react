@@ -12,9 +12,9 @@ import CardBody from "../../components/Card/CardBody";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 
-const token = JSON.parse(localStorage.getItem('TOKEN_KEY')).token;
-const userName = JSON.parse(localStorage.getItem('TOKEN_KEY')).username ;
-const userType = JSON.parse(localStorage.getItem('TOKEN_KEY')).userType;
+const token = localStorage.getItem('KEY');
+const userName = localStorage.getItem('USER_NAME');
+// const userType = JSON.parse(localStorage.getItem('TOKEN_KEY')).userType;
 function getItems(setItems) {
     //fetch(`${API_ROOT}/announcement`, {
     fetch(`${API_ROOT}/announcement`, {
@@ -138,7 +138,7 @@ function DashBoard() {
     const [editDetail, setEditDetail] = useState("");
     const [editEndDate, setEditEndDate] = useState("");
     const [announcementId,setAnnouncementId] = useState("");
-    const manager = userType === "Admin" ? true : false;
+    const manager = JSON.parse(localStorage.getItem('TOKEN_KEY')).userType === "Admin" ? true : false;
     const [title, setTitle] = useState('');
     const [detail, setDetail] = useState('');
     const [endDate, setEndDate] = useState(defaultEndDay);
