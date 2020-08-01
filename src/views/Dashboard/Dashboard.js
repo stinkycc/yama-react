@@ -3,7 +3,7 @@ import {TextField, Dialog, DialogActions, DialogContent, DialogTitle} from "@mat
 import {
     ItemButton
 } from "../../assets/jss/material-dashboard-react/views/dashboardStyle"
-import {API_ROOT} from "../../constants";
+import {API_ROOT, AUTH_HEADER} from "../../constants";
 import {func} from "prop-types";
 import Card from "components/Card/Card.js";
 import Button from "../../components/CustomButtons/Button";
@@ -12,9 +12,16 @@ import CardBody from "../../components/Card/CardBody";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 
+const token = localStorage.getItem("KEY");
 function getItems(setItems) {
     //fetch(`${API_ROOT}/announcement`, {
-    fetch(`${API_ROOT}/announcement`)
+    fetch(`${API_ROOT}/announcement`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `${AUTH_HEADER} ${token}`,
+        },
+
+    })
         .then((response) => {
             if (response.ok) {
                 return response.json();
@@ -32,6 +39,11 @@ function updateItem(formData) {
     //fetch(`${API_ROOT}/announcement`, {
     return fetch(`${API_ROOT}/announcement`, {
         method: 'PUT',
+        headers: {
+            'Authorization': `${AUTH_HEADER} ${token}`,
+            'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
+            "Content-Type":  "application/json"
+        },
         body: formData,
     }).then(response => {
         if (response.ok) {
@@ -53,6 +65,11 @@ function createItem(formData) {
     //fetch(`${API_ROOT}/announcement`, {
     return fetch(`${API_ROOT}/announcement`, {
         method: 'POST',
+        headers: {
+            'Authorization': `${AUTH_HEADER} ${token}`,
+            'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
+            "Content-Type":  "application/json"
+        },
         body: formData,
     }).then(response => {
         if (response.ok) {
@@ -73,6 +90,11 @@ function deleteItem(formData) {
     //fetch(`${API_ROOT}/announcement`, {
     return fetch(`${API_ROOT}/announcement`, {
         method: 'Delete',
+        headers: {
+            'Authorization': `${AUTH_HEADER} ${token}`,
+            'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
+            "Content-Type":  "application/json"
+        },
         body: formData,
     }).then(response => {
         if (response.ok) {
