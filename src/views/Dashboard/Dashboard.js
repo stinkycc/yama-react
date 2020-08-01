@@ -12,14 +12,14 @@ import CardBody from "../../components/Card/CardBody";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 
-// const token = JSON.parse(localStorage.getItem('TOKEN_KEY')).token;
-// const userName = JSON.parse(localStorage.getItem('TOKEN_KEY')).username ;
-// const userType = JSON.parse(localStorage.getItem('TOKEN_KEY')).userType;
+const token = JSON.parse(localStorage.getItem('TOKEN_KEY')).token;
+const userName = JSON.parse(localStorage.getItem('TOKEN_KEY')).username ;
+const userType = JSON.parse(localStorage.getItem('TOKEN_KEY')).userType;
 
 
-const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhIiwidXNlclR5cGUiOiJBZG1pbiIsImlhdCI6MTU5NjMxOTY5NiwiZXhwIjoxNTk2NDA2MDk2fQ.pdZpoC_zx5Gu5_IdSQqaM6OMnhGHlsOSrkwC4xQ7a8w";
-const userName = "a" ;
-const userType = "Admin";
+// const token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhIiwidXNlclR5cGUiOiJBZG1pbiIsImlhdCI6MTU5NjMxOTY5NiwiZXhwIjoxNTk2NDA2MDk2fQ.pdZpoC_zx5Gu5_IdSQqaM6OMnhGHlsOSrkwC4xQ7a8w";
+// const userName = "a" ;
+// const userType = "Admin";
 
 
 
