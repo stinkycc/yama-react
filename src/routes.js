@@ -48,23 +48,6 @@ import PackageManager from "./views/Package/PackageManager";
 import PackageResident from "./views/Package/PackageResident";
 
 export const routesTenant = [
-  
-  {
-    path: "/tenantPayment",
-    name: "Tenant Payment",
-    rtlName: "دفع المستأجر",
-    icon: Dashboard,
-    component: TenantPay,
-    layout: "/admin"
-  },
-  {
-    path: "/officeCheckPayment",
-    name: "Office Check Payment History",
-    rtlName: "مكتب الدفع تاريخ الشيكات",
-    icon: Dashboard,
-    component: OfficeCheckPay,
-    layout: "/admin"
-  },
   {
     path: "/tenantPayment",
     name: "Tenant Payment",
