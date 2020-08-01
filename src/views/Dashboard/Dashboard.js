@@ -37,9 +37,9 @@ function getItems(setItems) {
     });
 }
 
-function updateItem(formData) {
+function updateItem(formData,announcementId) {
     //fetch(`${API_ROOT}/announcement`, {
-    return fetch(`${API_ROOT}/announcement`, {
+    return fetch(`${API_ROOT}/announcement/${announcementId}`, {
         method: 'PUT',
         headers: {
             'Authorization': `${AUTH_HEADER} ${token}`,
@@ -87,7 +87,7 @@ function createItem(formData) {
     })
 
 }
-function deleteItem(announcementId) {
+function deleteItem(formData,announcementId) {
 //function deleteItem(formData) {
     //fetch(`${API_ROOT}/announcement`, {
 
@@ -98,7 +98,7 @@ function deleteItem(announcementId) {
             'Access-Control-Request-Methods': "POST, GET, OPTIONS, DELETE, PUT",
             "Content-Type":  "application/json"
         },
-        //body: formData,
+        body: formData,
     }).then(response => {
         if (response.ok) {
             return response.json();
@@ -137,6 +137,7 @@ function DashBoard() {
     const [editTitle, setEditTitle] = useState("");
     const [editDetail, setEditDetail] = useState("");
     const [editEndDate, setEditEndDate] = useState("");
+    const [announcementId,setAnnouncementId] = useState("");
     const manager = userType === "Admin" ? true : false;
     const [title, setTitle] = useState('');
     const [detail, setDetail] = useState('');
@@ -154,7 +155,7 @@ function DashBoard() {
                 manager ? <Button color={mainColor} onClick={() => setOpen(true)}>create</Button> : <p></p>
             }
             <Dialog open={openEdit} onClose={() => setOpenEdit(false)} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">create dashboard</DialogTitle>
+                <DialogTitle id="form-dialog-title">Edit dashboard</DialogTitle>
                 <DialogContent>
                     <TextField
                         autoFocus
@@ -205,12 +206,8 @@ function DashBoard() {
                             formData.set('endDate', editEndDate);
                             formData.set('userId', userId);
                             formData.set('userName', userName);
-                            // let suc = createItem(formData);
-                            // setEndDate(defaultEndDay);
-                            // setDetail("");
-                            // setTitle("");
-                            // setInfo("");
-                            // suc ? setOpen(false) : console.log(suc);
+                            let suc = updateItem(formData, announcementId);
+                            suc ? setOpenEdit(false) : console.log(suc);
                         }
 
                     }} color={mainColor}>
@@ -273,6 +270,7 @@ function DashBoard() {
                             formData.set('detail', detail);
                             formData.set('endDate', endDate);
                             formData.set('userId', userId);
+                            formData.set('userName', userName);
                             console.log("test:" + title + detail + endDate);
                             let suc = createItem(formData);
                             setEndDate(defaultEndDay);
@@ -305,6 +303,7 @@ function DashBoard() {
                                             setEditTitle(item.title);
                                             setEditDetail(item.detail);
                                             setEditEndDate(item.endDate);
+                                            setAnnouncementId(item.announcementId)
                                             console.log("dddd:" + item.endDate)
                                             setOpenEdit(true)
                                         }}>
@@ -314,11 +313,11 @@ function DashBoard() {
                                     {
                                         manager ? <ItemButton onClick={() => {
                                             const formData = new FormData();
-                                            formData.set('announcementId', item.announcementId);
-                                            formData.set('userId', userId);
-
+                                            // formData.set('announcementId', item.announcementId);
+                                            // formData.set('userId', userId);
+                                            //formData.set('userName', userName);
                                             //let suc = deleteItem(formData);
-                                            let suc = deleteItem(item.announcementId);
+                                            let suc = deleteItem(formData,item.announcementId);
                                             getItems(setDashboards);
                                             suc ? console.log("success") : console.log("Failed");
                                         }}>
